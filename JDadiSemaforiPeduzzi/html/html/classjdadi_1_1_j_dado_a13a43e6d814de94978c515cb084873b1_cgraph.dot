@@ -1,0 +1,14 @@
+digraph "run"
+{
+ // INTERACTIVE_SVG=YES
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node4 [label="run",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node4 -> Node5 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="jdadi.JDatiCondivisi.setVal1",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classjdadi_1_1_j_dati_condivisi.html#aea7590ffa5bc65cf224c64dadb444386",tooltip="permette di impostare il valore del primo dado. "];
+  Node4 -> Node6 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 [label="jdadi.JDatiCondivisi.setVal2",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classjdadi_1_1_j_dati_condivisi.html#ade3301a3766353400f67d48c10fefe9c",tooltip="permette di impostare il valore del secodno dado. "];
+  Node4 -> Node7 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node7 [label="jdadi.JDatiCondivisi.setVal3",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classjdadi_1_1_j_dati_condivisi.html#a7fedbb4713c4013e765a11fb22c72d4d",tooltip="permette di impostare il valore del terzo dado. "];
+}

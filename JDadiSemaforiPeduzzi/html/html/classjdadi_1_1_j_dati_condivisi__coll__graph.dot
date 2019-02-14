@@ -1,0 +1,7 @@
+digraph "JDatiCondivisi"
+{
+ // INTERACTIVE_SVG=YES
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="{JDatiCondivisi\n|- val0\l- val1\l- val2\l|+ JDatiCondivisi()\l+ getVal1()\l+ getVal2()\l+ getVal3()\l+ setVal1()\l+ setVal2()\l+ setVal3()\l+ toString()\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+}
