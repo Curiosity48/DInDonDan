@@ -27,17 +27,17 @@ public class JVisualizzaTh extends Thread {
         
         while(!isInterrupted())
         {
-            sem.Wait();
+            
             System.out.println(dC.getVal1());
-            sem.Signal();
             
-            sem.Wait();
+            
+            
             System.out.println(dC.getVal2());
-            sem.Signal();
             
-            sem.Wait();
+            
+            
             System.out.println(dC.getVal3());
-            sem.Signal();
+            
         }
     }
             

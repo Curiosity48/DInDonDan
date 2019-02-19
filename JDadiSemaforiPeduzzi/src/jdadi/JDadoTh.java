@@ -96,19 +96,19 @@ public class JDadoTh extends Thread {
 
                 switch (numDado) {
                     case 1:
-                        sem.Wait();
+                        
                         dCond.setVal1(valDado);
-                        sem.Signal();
+                        
                         break;
                     case 2:
-                        sem.Wait();
+                        
                         dCond.setVal2(valDado);
-                        sem.Signal();
+                        
                         break;
                     case 3:
-                        sem.Wait();
+                        
                         dCond.setVal3(valDado);
-                        sem.Signal();
+                        
                         break;
                     default:
                         break;

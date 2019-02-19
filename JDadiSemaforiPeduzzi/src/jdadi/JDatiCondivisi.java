@@ -45,21 +45,21 @@ public class JDatiCondivisi {
      * @author Samuele Peduzzi
      * @return restituisce il valore del primo dado
      */
-    public int getVal1() {
+    public synchronized int getVal1() {
         return val0;
     }
     /**
      * @author Samuele Peduzzi
      * @return restituisce il valore del secondo dado
      */
-    public int getVal2() {
+    public synchronized int getVal2() {
         return val1;
     }
     /**
      * @author Samuele Peduzzi
      * @return restituisce il valore del terzo dado
      */
-    public int getVal3() {
+    public synchronized int getVal3() {
         return val2;
     }
     /**
@@ -67,7 +67,7 @@ public class JDatiCondivisi {
      * @param val0
      * @brief permette di impostare il valore del primo dado.
      */
-    public void setVal1(int val0) {
+    public synchronized void setVal1(int val0) {
         this.val0 = val0;
     }
     /**
@@ -75,7 +75,7 @@ public class JDatiCondivisi {
      * @param val1
      * @brief permette di impostare il valore del secodno dado.
      */
-    public void setVal2(int val1) {
+    public synchronized void setVal2(int val1) {
         this.val1 = val1;
     }
     /**
@@ -83,7 +83,7 @@ public class JDatiCondivisi {
      * @param val2
      * @brief permette di impostare il valore del terzo dado.
      */
-    public void setVal3(int val2) {
+    public synchronized void setVal3(int val2) {
         this.val2 = val2;
     }
 

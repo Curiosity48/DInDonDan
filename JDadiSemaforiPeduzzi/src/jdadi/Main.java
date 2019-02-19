@@ -61,18 +61,18 @@ public class Main {
         d3.start();
         vis.start(); 
         
-        while (System.in.read() > 0)
-        {
-            if (d1.isAlive())
-                d1.interrupt();
-            if (d2.isAlive())
-                d2.interrupt();
-            if (d3.isAlive())
-                d3.interrupt();
-            
-            if (vis.isAlive())
-                vis.interrupt();
-        }
+        System.in.read();
+        
+        if (d1.isAlive())
+            d1.interrupt();
+        if (d2.isAlive())
+            d2.interrupt();
+        if (d3.isAlive())
+            d3.interrupt();
+
+        if (vis.isAlive())
+            vis.interrupt();
+        
 
     }
 
