@@ -1,0 +1,79 @@
+@startuml
+
+Utente --> Main: start
+
+Main --> mutex**: new
+
+Main --> datiCondivisi**: new
+
+Main --> clop1Th**: new
+Main --> clop2Th**: new
+Main --> clop3Th**: new
+Main --> clop4Th**: new
+Main --> clop5Th**: new
+
+Main --> visTh**: new
+
+
+
+
+
+Main --> clop1Th++: start()
+clop1Th --> clop1Th: run()
+Main --> clop2Th++: start()
+clop2Th --> clop2Th: run()
+Main --> clop3Th++: start()
+clop3Th --> clop3Th: run()
+Main --> clop4Th++: start()
+clop4Th --> clop4Th: run()
+Main --> clop5Th++: start()
+clop5Th --> clop5Th: run()
+
+Main --> visTh++: start()
+visTh --> visTh: run()
+
+
+loop for(int i = 0; i < 50; i++)
+clop1Th--> mutex: Wait()
+clop1Th --> datiCondivisi : push(verso)
+clop1Th --> mutex: Singal()
+end
+
+loop for(int i = 0; i < 50; i++)
+clop2Th--> mutex: Wait()
+clop2Th --> datiCondivisi : push(verso)
+clop2Th --> mutex: Singal()
+end
+
+loop for(int i = 0; i < 50; i++)
+clop3Th--> mutex: Wait()
+clop3Th --> datiCondivisi : push(verso)
+clop3Th --> mutex: Singal()
+end
+
+loop for(int i = 0; i < 50; i++)
+clop4Th--> mutex: Wait()
+clop4Th --> datiCondivisi : push(verso)
+clop4Th --> mutex: Singal()
+end
+
+loop for(int i = 0; i < 50; i++)
+clop5Th--> mutex: Wait()
+clop5Th --> datiCondivisi : push(verso)
+clop5Th --> mutex: Singal()
+end
+
+loop !isInterrupted
+visTh --> datiCondivisi: getLast()
+end
+
+clop1Th --> clop1Th--: end
+clop2Th --> clop2Th--: end
+clop3Th --> clop3Th--: end
+clop4Th --> clop4Th--: end
+clop5Th --> clop5Th--: end
+
+Main --> visTh--: Interrupt()
+
+
+@enduml

@@ -1,0 +1,55 @@
+@startuml
+
+Utente --> Main: start
+
+Main --> mutex**: new
+
+Main --> datiCondivisi**: new
+
+Main --> dinTh**: new
+Main --> donTh**: new 
+Main --> danTh**: new
+
+Main --> visTh**: new
+
+
+
+
+Main --> dinTh++: start()
+dinTh --> dinTh: run()
+Main --> donTh++: start()
+donTh --> donTh: run()
+Main --> danTh++: start()
+danTh --> danTh: run()
+Main --> visTh++: start()
+visTh --> visTh: run()
+
+loop !isInterrupted
+dinTh --> mutex: Wait()
+dinTh --> datiCondivisi : push(suono)
+dinTh --> mutex: Singal()
+end
+
+loop !isInterrupted
+donTh --> mutex: Wait()
+donTh --> datiCondivisi : push(suono)
+donTh --> mutex: Singal()
+end
+
+loop !isInterrupted
+danTh --> mutex: Wait()
+danTh --> datiCondivisi : push(suono)
+danTh --> mutex: Singal()
+end
+
+loop !isInterrupted
+visTh --> datiCondivisi: getLast()
+end
+
+main --> dinTh--:interrupt()
+main --> donTh--:interrupt()
+main --> danTh--:interrupt()
+
+main --> visTh--:interrupt()
+
+@enduml
