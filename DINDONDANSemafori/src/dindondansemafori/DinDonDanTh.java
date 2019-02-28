@@ -5,6 +5,9 @@
  */
 package dindondansemafori;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author Samuele Peduzzi
@@ -12,13 +15,11 @@ package dindondansemafori;
 public class DinDonDanTh extends Thread{
     
     private JDatiCondivisi dC;
-    private String suono;
-    private Semaforo mutex;
+    private int suono;
 
-    public DinDonDanTh(JDatiCondivisi dC, String suono, Semaforo mutex) {
+    public DinDonDanTh(JDatiCondivisi dC, int suono) {
         this.dC = dC;
         this.suono = suono;
-        this.mutex = mutex;
     }
     
     
@@ -28,12 +29,34 @@ public class DinDonDanTh extends Thread{
     @Override
     public void run()
     {
-        while(!isInterrupted())
-        {
-            mutex.Wait();
-            dC.push(suono);
-            mutex.Signal();
+        try {
+            while(!isInterrupted())
+        {       
+            switch (suono) {
+                case 1:
+                    dC.aquire(1);
+                    dC.push("DIN");
+                    dC.release(2);
+                    break;
+                case 2:
+                    dC.aquire(2);
+                    dC.push("DON");
+                    dC.release(3);
+                    break;
+                case 3:
+                    dC.aquire(3);
+                    dC.push("DAN");
+                    dC.release(1);
+                    break;
+                default:
+                    break;
+            } 
         }
+
+        } catch (InterruptedException ex) {
+            // Logger.getLogger(DinDonDanTh.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
             
             
     }

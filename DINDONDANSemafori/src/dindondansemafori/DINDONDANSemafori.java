@@ -16,16 +16,15 @@ public class DINDONDANSemafori {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) throws IOException {
-        
-        Semaforo mutex = new Semaforo(1);
+    public static void main(String[] args) throws IOException, InterruptedException {
+           
         
         JDatiCondivisi dC = new JDatiCondivisi();
         
-        DinDonDanTh din = new DinDonDanTh(dC, "DIN, ",mutex);
-        DinDonDanTh don = new DinDonDanTh(dC, "DON, ",mutex);
-        DinDonDanTh dan = new DinDonDanTh(dC, "DAN, ",mutex);
-        
+        DinDonDanTh din = new DinDonDanTh(dC, 1);
+        DinDonDanTh don = new DinDonDanTh(dC, 2);
+        DinDonDanTh dan = new DinDonDanTh(dC, 3);
+       
         JVisualizzaTh vis = new JVisualizzaTh(dC);
         
         din.start();
@@ -37,14 +36,22 @@ public class DINDONDANSemafori {
         
         System.in.read();
         
-        if(din.isAlive()) 
+        if(din.isAlive()) {
             din.interrupt();
-        if(don.isAlive()) 
+            din.join();
+        }
+        if(don.isAlive())  {
             don.interrupt();
-        if(dan.isAlive()) 
+            don.join();
+        }
+        if(dan.isAlive())  {
             dan.interrupt();
-        if(vis.isAlive())
+            dan.join();
+        }
+        if(vis.isAlive()) {
             vis.interrupt();
+            vis.join();
+        }
         
         
     }

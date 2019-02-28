@@ -5,6 +5,9 @@
  */
 package dindondansemafori;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author Samuele Peduzzi
@@ -22,9 +25,15 @@ public class JVisualizzaTh extends Thread{
     
     public void run()
     {
-        while(!isInterrupted())
+        while(true)
         {
-            System.out.print(dC.getLast());
+            try {
+                dC.aquire(4);
+                System.out.print(dC.getLast());
+                dC.release(5);
+            } catch (InterruptedException ex) {
+                break;
+            }
         }
     }
     
