@@ -2,8 +2,6 @@
 
 Utente --> Main: start
 
-Main --> mutex**: new
-
 Main --> datiCondivisi**: new
 
 Main --> dinTh**: new
@@ -25,31 +23,41 @@ Main --> visTh++: start()
 visTh --> visTh: run()
 
 loop !isInterrupted
-dinTh --> mutex: Wait()
+dinTh --> datiCondivisi : aquire(1)
 dinTh --> datiCondivisi : push(suono)
-dinTh --> mutex: Singal()
+dinTh --> datiCondivisi : release(2);
+
 end
 
 loop !isInterrupted
-donTh --> mutex: Wait()
+donTh --> datiCondivisi : aquire(2)
 donTh --> datiCondivisi : push(suono)
-donTh --> mutex: Singal()
+donTh --> datiCondivisi : release(3)
+
 end
 
 loop !isInterrupted
-danTh --> mutex: Wait()
+danTh --> datiCondivisi : aquire(3)
 danTh --> datiCondivisi : push(suono)
-danTh --> mutex: Singal()
+danTh --> datiCondivisi : release(1)
+
 end
 
 loop !isInterrupted
-visTh --> datiCondivisi: getLast()
+visTh --> datiCondivisi : aquire(4)
+visTh --> datiCondivisi : getLast()
+isTh --> datiCondivisi : release(5)
 end
+
+note left bottom: Se viene premuto un pulsante...
 
 main --> dinTh--:interrupt()
 main --> donTh--:interrupt()
 main --> danTh--:interrupt()
 
 main --> visTh--:interrupt()
+
+
+
 
 @enduml
