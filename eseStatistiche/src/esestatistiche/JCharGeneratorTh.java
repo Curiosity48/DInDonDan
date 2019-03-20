@@ -27,21 +27,32 @@ public class JCharGeneratorTh extends Thread{
     
     public JCharGeneratorTh(int numCaratteri, JDatiCondivisi dC) {
         this.numCaratteri = numCaratteri;
-        dC = new JDatiCondivisi();
+        this.dC = dC;
         charDictionary = ". abcdefghilmnopqrstuvz0123456789";
     }
     
     @Override
     public void run()
     {
+        char randomChar;
+        
         for (int i = 0; i < numCaratteri; i++) {
-            dC.pushChar(getRandomChar());
             
-            if (getRandomChar() == '.') 
+            randomChar = getRandomChar();
+            
+            
+            dC.pushChar(randomChar);
+            
+            if (randomChar == '.') 
                 dC.incnumPuntiInseriti();
-            else if (getRandomChar() == ' ')
+            else if (randomChar == ' ')
                 dC.incnumSpaziInseriti();     
+            
+            dC.getSem2().release();
         }
+        
+        dC.getSem1().release();
+        
     }
     
     

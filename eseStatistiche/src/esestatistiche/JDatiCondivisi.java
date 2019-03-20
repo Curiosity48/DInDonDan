@@ -6,6 +6,7 @@
 package esestatistiche;
 
 import java.util.Vector;
+import java.util.concurrent.Semaphore;
 
 /**
  *
@@ -14,13 +15,19 @@ import java.util.Vector;
 public class JDatiCondivisi {
     
     private Vector buffer;
+    private Semaphore sem1, sem2, sem3;
     private int numSpaziInseriti, numPuntiInseriti;
     private int numSpaziLetti, numPuntiLetti;
     
     
 
     public JDatiCondivisi() {
-        buffer = new Vector(0,1);
+        buffer = new Vector(1,1);
+        
+        sem1 = new Semaphore(0);
+        sem2 = new Semaphore(0);
+        sem3 = new Semaphore(0);
+        
         numSpaziInseriti = 0;
         numPuntiInseriti = 0;
         numSpaziLetti = 0;
@@ -34,7 +41,7 @@ public class JDatiCondivisi {
         return (char)buffer.lastElement();
     }
     
-    public synchronized void pushChar(char carattere )
+    public synchronized void pushChar(char carattere)
     {
         buffer.add(carattere);
     }
@@ -90,6 +97,27 @@ public class JDatiCondivisi {
     public int getNumPuntiLetti() {
         return numPuntiLetti;
     }
+    
+    
+    //Metodi per la sincronizzazione dei thread
+
+    public Semaphore getSem1() {
+        return sem1;
+    }
+
+    public Semaphore getSem2() {
+        return sem2;
+    }
+
+    public Semaphore getSem3() {
+        return sem3;
+    }
+    
+
+ 
+    
+    
+    
     
     
     

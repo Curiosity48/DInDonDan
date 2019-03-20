@@ -5,12 +5,15 @@
  */
 package esestatistiche;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author peduzzi_samuele
  */
-public class JContatoreTh {
-    
+public class JContatoreTh extends Thread {
+
     JDatiCondivisi dC;
     boolean mode;
 
@@ -18,25 +21,35 @@ public class JContatoreTh {
         this.dC = dC;
         this.mode = mode;
     }
-    
-    public void run()
-    {
-        for (int i = 0; i < dC.getBufferLenght(); i++) {
-            
-            if (mode)
-            {
-                if (dC.getElementAt(i) == ' ')
-                    dC.incnumSpaziLetti();
-            }
-            else {
-                if (dC.getElementAt(i) == '.')
-                    dC.incnumPuntiLetti();
-            }
 
+    @Override
+    public void run() {
+        try {
+            
+            dC.getSem2().acquire();
+
+            for (int i = 0; i < dC.getBufferLenght(); i++) {
+
+                if (mode) {
+                    if (dC.getElementAt(i) == ' ') {
+                        dC.incnumSpaziLetti();
+                    }
+                } else {
+                    if (dC.getElementAt(i) == '.') {
+                        dC.incnumPuntiLetti();
+                    }
+                }
+
+            }
+            
+            dC.getSem3().release();
+            
+            
+
+        } catch (InterruptedException ex) {
+            Logger.getLogger(JContatoreTh.class.getName()).log(Level.SEVERE, null, ex);
         }
+
     }
-                
-    
-    
-    
+
 }
