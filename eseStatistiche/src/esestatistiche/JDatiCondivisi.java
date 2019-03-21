@@ -7,78 +7,79 @@ package esestatistiche;
 
 import java.util.Vector;
 import java.util.concurrent.Semaphore;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author peduzzi_samuele
  */
 public class JDatiCondivisi {
-    
+
     private Vector buffer;
-    private Semaphore sem1, sem2, sem3;
-    private int numSpaziInseriti, numPuntiInseriti;
-    private int numSpaziLetti, numPuntiLetti;
+    private Semaphore synchVisCarattereGenerato;
+    private Semaphore synchVisVisualizzato;
+    
+    private Semaphore synchCountCarattereGenerato;
+    private Semaphore synchCountCarattereLetto;
+    
+    
     
     
 
+    private int numSpaziInseriti, numPuntiInseriti;
+    private int numSpaziLetti, numPuntiLetti;
+
     public JDatiCondivisi() {
-        buffer = new Vector(1,1);
+        buffer = new Vector(1, 1);
+
+        synchVisCarattereGenerato = new Semaphore(0);
+        synchVisVisualizzato = new Semaphore(1);
         
-        sem1 = new Semaphore(0);
-        sem2 = new Semaphore(0);
-        sem3 = new Semaphore(0);
+        synchCountCarattereGenerato = new Semaphore(0);
+        synchCountCarattereLetto = new Semaphore(1);
         
         numSpaziInseriti = 0;
         numPuntiInseriti = 0;
         numSpaziLetti = 0;
         numPuntiLetti = 0;
     }
-    
-    
+
     //Metodi per la gestione del buffer 
-    public synchronized char getLastChar()
-    {
-        return (char)buffer.lastElement();
+    public synchronized char getLastChar() {
+        return (char) buffer.lastElement();
     }
-    
-    public synchronized void pushChar(char carattere)
-    {
+
+    public synchronized void pushChar(char carattere) {
         buffer.add(carattere);
     }
-    
-    public int getBufferLenght()
-    {
+
+    public int getBufferLenght() {
         return buffer.size();
     }
-    
-    public char getElementAt(int index)
-    {
-        return (char)buffer.elementAt(index);
+
+    public char getElementAt(int index) {
+        return (char) buffer.elementAt(index);
     }
-    public String bufferToString()
-    {
+
+    public String bufferToString() {
         return buffer.toString();
     }
-    
-    
+
     //Metodi per la gestione del numero di spazii e punti
-    public synchronized void incnumSpaziInseriti()
-    {
+    public synchronized void incnumSpaziInseriti() {
         numSpaziInseriti++;
     }
-    
-    public synchronized void incnumPuntiInseriti()
-    {
+
+    public synchronized void incnumPuntiInseriti() {
         numPuntiInseriti++;
     }
-    
-    public synchronized void incnumSpaziLetti()
-    {
+
+    public synchronized void incnumSpaziLetti() {
         numSpaziLetti++;
     }
-    
-    public synchronized void incnumPuntiLetti()
-    {
+
+    public synchronized void incnumPuntiLetti() {
         numPuntiLetti++;
     }
 
@@ -97,31 +98,55 @@ public class JDatiCondivisi {
     public int getNumPuntiLetti() {
         return numPuntiLetti;
     }
-    
-    
+
     //Metodi per la sincronizzazione dei thread
-
-    public Semaphore getSem1() {
-        return sem1;
+    public void attendiVisCarattereGenerato() {
+        try {
+            synchVisCarattereGenerato.acquire();
+        } catch (InterruptedException ex) {
+            Logger.getLogger(JDatiCondivisi.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
-    public Semaphore getSem2() {
-        return sem2;
+    public void segnalaVisCarattereGenerato() {
+        synchVisCarattereGenerato.release();
     }
 
-    public Semaphore getSem3() {
-        return sem3;
+    public void attendiVisVisualizzato() {
+        try {
+            synchVisVisualizzato.acquire();
+        } catch (InterruptedException ex) {
+            Logger.getLogger(JDatiCondivisi.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
-
- 
+    public void segnalaVisVisualizzato() {
+        synchVisVisualizzato.release();
+    }
     
     
+    public void attendiCountCarattereGenerato() {
+        try {
+            synchCountCarattereGenerato.acquire();
+        } catch (InterruptedException ex) {
+            Logger.getLogger(JDatiCondivisi.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     
+    public void segnalaCountCarattereGenerato() {
+        synchCountCarattereGenerato.release();
+    }
     
+    public void attendiCountCarattereLetto() {
+        try {
+            synchCountCarattereLetto.acquire();
+        } catch (InterruptedException ex) {
+            Logger.getLogger(JDatiCondivisi.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     
-    
-    
-    
+    public void segnalaCountCarattereLetto() {
+        synchCountCarattereLetto.release();
+    }
     
 }

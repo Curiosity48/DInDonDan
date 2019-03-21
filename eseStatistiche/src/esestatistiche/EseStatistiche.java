@@ -38,7 +38,8 @@ public class EseStatistiche {
         contaPunti.start();
         monitor.start();
         
-        dC.getSem3().acquire();
+        contaSpazii.join();
+        contaPunti.join();
         
         if(charGenerator.isAlive())
             charGenerator.interrupt();

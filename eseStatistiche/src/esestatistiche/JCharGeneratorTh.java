@@ -38,6 +38,8 @@ public class JCharGeneratorTh extends Thread{
         
         for (int i = 0; i < numCaratteri; i++) {
             
+            dC.attendiVisVisualizzato();
+            
             randomChar = getRandomChar();
             
             
@@ -48,10 +50,14 @@ public class JCharGeneratorTh extends Thread{
             else if (randomChar == ' ')
                 dC.incnumSpaziInseriti();     
             
-            dC.getSem2().release();
+            
+            dC.segnalaVisCarattereGenerato();
+            
         }
         
-        dC.getSem1().release();
+        dC.segnalaCountCarattereGenerato();
+        
+        
         
     }
     

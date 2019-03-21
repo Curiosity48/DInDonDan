@@ -24,30 +24,20 @@ public class JContatoreTh extends Thread {
 
     @Override
     public void run() {
-        try {
+        
+        dC.attendiCountCarattereGenerato();
+        
+        for (int i = 0; i < dC.getBufferLenght(); i++) {
             
-            dC.getSem2().acquire();
-
-            for (int i = 0; i < dC.getBufferLenght(); i++) {
-
-                if (mode) {
-                    if (dC.getElementAt(i) == ' ') {
-                        dC.incnumSpaziLetti();
-                    }
-                } else {
-                    if (dC.getElementAt(i) == '.') {
-                        dC.incnumPuntiLetti();
-                    }
+            if (mode) {
+                if (dC.getElementAt(i) == ' ') {
+                    dC.incnumSpaziLetti();
                 }
-
+            } else if (dC.getElementAt(i) == '.') {
+                dC.incnumPuntiLetti();
             }
             
-            dC.getSem3().release();
-            
-            
 
-        } catch (InterruptedException ex) {
-            Logger.getLogger(JContatoreTh.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
