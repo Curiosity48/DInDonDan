@@ -39,6 +39,9 @@ public class JCharGeneratorTh extends Thread{
         for (int i = 0; i < numCaratteri; i++) {
             
             dC.attendiVisVisualizzato();
+//            dC.attendiCountPuntiCarattereLetto();
+//            dC.attendiCountSpaziiCarattereLetto();
+            
             
             randomChar = getRandomChar();
             
@@ -52,10 +55,15 @@ public class JCharGeneratorTh extends Thread{
             
             
             dC.segnalaVisCarattereGenerato();
+//            dC.segnalaCountPuntiCarattereGenerato();
+//            dC.segnalaCountSpaziiCarattereGenerato();
             
         }
+        dC.segnalaCountPuntiCarattereGenerato();
+        dC.segnalaCountSpaziiCarattereGenerato();
         
-        dC.segnalaCountCarattereGenerato();
+        
+        
         
         
         

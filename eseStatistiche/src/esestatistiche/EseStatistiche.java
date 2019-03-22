@@ -5,7 +5,10 @@
  */
 package esestatistiche;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.Scanner;
 
 /**
  *
@@ -19,14 +22,20 @@ public class EseStatistiche {
     public static void main(String[] args) throws IOException, InterruptedException {
         
         //Dati condivisi 
+        BufferedReader in;
         JDatiCondivisi dC = new JDatiCondivisi();
         JCharGeneratorTh charGenerator;
         JContatoreTh contaPunti, contaSpazii;
         JVisualizzaTh monitor = new JVisualizzaTh(dC);
         int numChar;
         
-        System.out.println("Quanti caratteri si desidera generare ?");
-        numChar = System.in.read() - 48;
+        in = new BufferedReader(new InputStreamReader(System.in));
+        
+        do {
+            System.out.println("Quanti caratteri si desidera generare ?");
+            numChar =  Integer.parseInt(in.readLine());
+        } while(numChar <= 0);
+        
 
         
         charGenerator = new JCharGeneratorTh(numChar, dC);
@@ -38,8 +47,11 @@ public class EseStatistiche {
         contaPunti.start();
         monitor.start();
         
+        
+        charGenerator.join();
         contaSpazii.join();
         contaPunti.join();
+//        monitor.join();
         
         if(charGenerator.isAlive())
             charGenerator.interrupt();
@@ -57,6 +69,13 @@ public class EseStatistiche {
         
         else
             System.out.println("Attenzione !! I valori non corrispondono !!");
+        
+        
+        System.out.println("Spazii inseriti " + dC.getNumSpaziInseriti());
+        System.out.println("Spazii letti " + dC.getNumSpaziLetti());
+        
+        System.out.println("Punti inseriti " + dC.getNumPuntiInseriti());
+        System.out.println("Punti letti " + dC.getNumPuntiLetti());
         
     }
     

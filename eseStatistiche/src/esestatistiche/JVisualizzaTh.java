@@ -29,8 +29,9 @@ public class JVisualizzaTh extends Thread {
             System.out.println(dC.bufferToString());
             System.out.println("Numero di spazi inseriti " + dC.getNumSpaziInseriti());
             System.out.println("Numero di punti inseriti " + dC.getNumPuntiInseriti());
-            System.out.println("Numero di punti letti " + dC.getNumPuntiLetti());
-            System.out.println("Numero di spazi letti " + dC.getNumSpaziLetti());
+//            System.out.println("Numero di spazi letti " + dC.getNumSpaziLetti());
+//            System.out.println("Numero di punti letti " + dC.getNumPuntiLetti());
+            
             
             dC.segnalaVisVisualizzato();
         }
